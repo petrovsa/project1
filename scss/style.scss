@@ -87,6 +87,7 @@ $breakpoint-xl-max: $breakpoint-xxl-min - 1px;
 
 body {
     @include roboto;
+    padding-top: $base*20;
     
     }
 
@@ -237,19 +238,21 @@ h5 {
     @include reset;
     display: flex;
     justify-content: center;
-    &_item {
-        width: $base * 2;
-        height: $base * 2;
-        border-radius: 100%;
-        transition: $transition;
-        background-color: #d6dae5;
-        &+& {
-            margin-left: $base *3;
-        }
-        &--active {
-            background-color: #5982e7;
-        }
-        cursor: pointer;
+    cursor: pointer;
+}
+
+.swiper-pagination-bullet {
+    display: block;
+    width: $base * 2;
+    height: $base * 2;
+    border-radius: 100%;
+    transition: $transition;
+    background-color: #d6dae5;
+    &-active {
+        background-color: #5982e7;
+    }
+    & + & {
+        margin-left: $base *3;
     }
 }
 
@@ -264,7 +267,6 @@ h5 {
         .section-header & {
         @media (max-width: $breakpoint-md-max) {
         display: none;
-        //
         position: absolute;
         top: 100%;
         z-index: 10;
@@ -329,7 +331,30 @@ h5 {
 
 // === SECTION-HEADER
 .section-header {
-    position: relative;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 10;
+    background-color: #fff;
+    &::before {
+        display: none;
+        position: absolute;
+        content: '';
+        width: 100vw;
+        height: 100vh;
+        top: 100%;
+        left: 0;
+        background-color: rgba(0, 0, 0, .5)
+    }
+    &-active-nav {
+        .main-navigation__wrapper {
+            display: flex;
+        }
+        &::before {
+            display: block;
+        }
+    }
 }
 
 .btn-burger {
@@ -419,18 +444,24 @@ border-radius: 100%;
 
 // === HERO-IMAGE
 .hero-image {
+    display: flex;
+    align-items: center;
+    align-content: center;
     background-color: #f4f7ff;
     position: relative;
     padding: 0;
+    overflow: hidden;
     .dots {
+        position: absolute;
         left: 50%;
         bottom: $base * 7;
-        position: absolute;
         transform: translateX(-50%);
     }
     .hero-image-slider {
         @include reset;
+        display: flex;
         &_item{
+            min-width: 100%;
             height: $base * 140;
             background-size: cover;
             background-position: 50% 100%;
@@ -676,18 +707,27 @@ border-radius: 100%;
 // === BLOG
 .blog {
     background-color: #f5f8ff;
-    .slider-wrapper {
+    .slider-blog {
         position: relative;
+        padding-bottom: $base*8;
     }
-    .blog-slider {
-        @include reset;
+
+    .slider-blog-container {
+        position: relative;
         background-color: #fff;
         box-shadow: 0 $base $base*12 rgba(#c9d1e7, .6);
         border: 1px solid #d8e3fe;
-        margin-bottom: $base*25;
+        overflow: hidden;
+    }
+    .blog-slider-wrapper {
+        display: flex;
+        @include reset;
         &_item {
-            margin: $base*16 $base*8;
             display: flex;
+            min-width: 100%;
+            padding: $base*16 $base*8;
+            justify-content: space-between;
+            box-sizing: border-box;
             &-gallery {
                 display: grid;
                 grid-template-columns: repeat(3,$base*32);
@@ -775,7 +815,7 @@ border-radius: 100%;
             }
             @media (max-width: $breakpoint-sm-max) {
                 flex-direction: column;
-                margin: $base*8 $base*4;
+                padding: $base*8 $base*4;
             } 
             
         }
@@ -807,17 +847,25 @@ border-radius: 100%;
             display: none;
         }
     }
+    // .dots {
+    //     position: absolute;
+    //     top: 100%;
+    //     left: 50%;
+    //     transform: translateX(-50%);
+    // }
+
 }
 // === /BLOG
 
 // === QUOTES
 .quotes {
     background: linear-gradient(#eaf0ff,#f6f9ff);
+    overflow: hidden;
     .section-inner {
         display: flex;
         justify-content: space-between;
         &-right,  &-left {
-            flex-basis: 45%;
+            max-width: 45%;
         }
 
         &-left {
@@ -830,15 +878,31 @@ border-radius: 100%;
             }
         }
         &-right {
+            .slider-quotes-container {
+                overflow: hidden;
+                min-width: 50vw;
+                margin: $base*8 -$base*12;
+            }
             &-slider {
                 @include reset();
+                display: flex;
+                width: 20vw;
                 &-item {
                     position: relative;
+                    min-width: 20vw;
                     background-color: #fff;
                     border: 1px solid #d8e3fe;
                     box-shadow: 0px $base $base*12 0px #f3f5fa;
                     padding: $base*9;
                     margin-bottom: $base*20;
+                    opacity: 0.5;
+                    transition: opacity $transition;
+                    &.swiper-slide-active {
+                        opacity: 1;
+                    }
+                    // & + & {
+                    //     margin-left: 5vw;
+                    // }
                     &-content {
                         @include roboto();
                         line-height: 2;
@@ -871,10 +935,10 @@ border-radius: 100%;
                 }
             }
         }
-        @media (max-width: $breakpoint-sm-max) {
+        @media (max-width: $breakpoint-md-max) {
             flex-direction: column;
             &-right,  &-left {
-                flex-basis: 100%;
+                max-width: 100%;
                 margin: $base*5 $base*5;
             }
     }
