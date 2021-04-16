@@ -55,33 +55,17 @@ document.querySelector('.btn-burger').addEventListener('click', (event)=>{
 
     };
 
-    new Swiper('.hero-image', {
-        // Optional parameters
-        // direction: 'vertical',
-        // loop: true,
-      
+    new Swiper('.hero-image', {     
         // If we need pagination
         pagination: {
             el: '.hero-image .swiper-pagination',
             clickable: true,
           },
-      
-        // // Navigation arrows
-        // navigation: {
-        //   nextEl: '.swiper-button-next',
-        //   prevEl: '.swiper-button-prev',
-        // },
-      
-        // // And if we need scrollbar
-        // scrollbar: {
-        //   el: '.swiper-scrollbar',
-        // },
+
       });
 
       new Swiper('.slider-blog-container', {
-        // Optional parameters
-        // direction: 'vertical',
-        loop: true,
+         loop: true,
       
         // If we need pagination
         pagination: {
@@ -95,10 +79,6 @@ document.querySelector('.btn-burger').addEventListener('click', (event)=>{
           prevEl: '.btn-blog-prev',
         },
       
-        // // And if we need scrollbar
-        // scrollbar: {
-        //   el: '.swiper-scrollbar',
-        // },
       });
 
       new Swiper('.slider-quotes-container', {
@@ -114,19 +94,7 @@ document.querySelector('.btn-burger').addEventListener('click', (event)=>{
             clickable: true,
           },
       
-        // Navigation arrows
-        // navigation: {
-        //   nextEl: '.btn-blog-next',
-        //   prevEl: '.btn-blog-prev',
-        // },
-      
-        // // And if we need scrollbar
-        // scrollbar: {
-        //   el: '.swiper-scrollbar',
-        // },
       });
 
-
-      // slider-quotes-container
 
       
